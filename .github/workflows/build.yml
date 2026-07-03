@@ -1,0 +1,37 @@
+name: Build Converter
+
+on:
+  push:
+    branches: [ "master" ]
+  workflow_dispatch:
+  schedule:
+    - cron: "0 12 * * 1"   # poniedziałek 12:00
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+
+    - name: Install dependencies from script
+      shell: pwsh
+      run: ./installResources.ps1
+
+    - name: Build console EXE
+      run: pyinstaller --onefile project.py
+
+    - name: Build UI EXE
+      run: pyinstaller --onefile --noconsole ui.py
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: converter-exe
+        path: dist/

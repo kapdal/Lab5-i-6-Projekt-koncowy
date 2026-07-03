@@ -1,0 +1,19 @@
+{
+    "user": {
+        "id": 123,
+        "name": "Jakub",
+        "active": true
+    },
+    "items": [
+        {
+            "id": 1,
+            "name": "Laptop",
+            "price": 3999.99
+        },
+        {
+            "id": 2,
+            "name": "Klawiatura",
+            "price": 199.99
+        }
+    ]
+}
